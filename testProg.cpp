@@ -7,11 +7,21 @@ int main()
 	{
 	
     //Matrix m1(4,3,0.5);
-    Matrix<double> m1(2,3,1.8);
+    Matrix<int> m1(2,2,0);
     //m1.displayMatrix();
 
 
-    Matrix<double> m2(2,3,1.8);
+    Matrix<int> m2(2,2,0);
+
+   m1(0,0) = 1;
+   m1(0,1) = 2;
+   m1(1,0) = 3;
+   m1(1,1) = 1;
+
+   m2(0,0) = 4;
+   m2(0,1) = 5;
+   m2(1,0) = 2;
+   m2(1,1) = 3;
 
     /*m1 -= m2;
     m1.displayMatrix();
@@ -23,8 +33,9 @@ int main()
 
    // Matrix Multiplication
     //Matrix m3 = m1;
-    m1 += m2;
-    m1.displayMatrix();
+    Matrix<int> prod ( m1*m2 );
+    //m1 =  m1*m2;
+    prod.displayMatrix();
     
 
     /*

@@ -1,9 +1,11 @@
 #include<assert.h>
 #include<iostream>
+#include<fstream>
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::ostream;
 
 template <class T>
 class Matrix 
@@ -15,6 +17,16 @@ class Matrix
 	T *ptr;
 
 	public :
+	
+	int getNumRows()
+	{
+	return m;
+	}
+
+	int getNumCols()
+	{
+	return n;
+	}
 
 	Matrix(int nrow, int ncol, T val);  // Constructor
 	Matrix(int nrow, int ncol);
@@ -35,8 +47,13 @@ class Matrix
 
 	bool operator== (const Matrix &obj);
 	bool operator!= (const Matrix &obj);
-
-	void operator<< (const Matrix &obj);
+	
+	//template <class T>;
+	template<class U>
+ 	friend ostream& operator<< (ostream& os, const Matrix<U>& obj); 
+	/*A<U> foo(A<U>& a);
+	template <typename Type> // this is the template parameter declaration
+	friend ostream& operator<< (ostream& os, const Type &obj);*/
 
 	void displayMatrix();
 
@@ -186,23 +203,23 @@ Matrix<T> Matrix<T>::operator* (const Matrix &obj)
 			row = i/(obj.n);
 			col = i % (obj.n); 
 
-			cout<<"\nrow is: "<<row<<endl;
-			cout<<"\ncol is:"<<col<<endl; 
+			//cout<<"\nrow is: "<<row<<endl;
+			//cout<<"\ncol is:"<<col<<endl; 
 
 			for(int j=0 ; j < this->n ; ++j)
 			{
-				cout<<"j is: " << j << endl;
+				//cout<<"j is: " << j << endl;
 
-				cout<<"\ntemp:   "<<temp<<endl;
+				//cout<<"\ntemp:   "<<temp<<endl;
 
-				cout<< "\n(*(this->ptr + (row*(this->n) + j) ))" << (*(this->ptr + (row*(this->n) + j) )) <<endl;
+				//cout<< "\n(*(this->ptr + (row*(this->n) + j) ))" << (*(this->ptr + (row*(this->n) + j) )) <<endl;
 
-				cout<<"\n(*(obj.ptr + (col + j*(obj.n)) ))" << (*(obj.ptr + (col + j*(obj.n)) )) << endl;
+				//cout<<"\n(*(obj.ptr + (col + j*(obj.n)) ))" << (*(obj.ptr + (col + j*(obj.n)) )) << endl;
 
 				temp = temp +  (*(this->ptr + (row*(this->n) + j) )) * (*(obj.ptr + (col + j*(obj.n)) ));
 
 			}
-			cout<<"Now the temp is : " << temp << endl;
+			//cout<<"Now the temp is : " << temp << endl;
 			//*(this->ptr + i) = temp;
 			*(m3.ptr + i) = temp;
 		}
@@ -267,35 +284,28 @@ Matrix<T>::~Matrix()
 template <class T>
 const T& Matrix<T> :: operator() (int r, int c) const
 {
+	//cout<<"I am inside const operator ()" <<  endl; 	
 	return *(ptr+ r*n + c);
-}
+} 
 
 template <class T>
 T& Matrix<T> :: operator() (int r, int c)
-{
+{	
+	//cout<<"I am inside operator ()" <<  endl; 	
 	return *(ptr+ r*n + c);
 }	
 
-template <class T>
-void Matrix<T> :: operator<< (const Matrix &obj)
-{
 
-int i=0,j=0;
-	cout<<"\nThe contents of the matrix are: "<< endl;
-	
-	for(i=0 ; i< this->m ; ++i)
-	    {	
-	    	//cout<<"i is: "<<i<<endl;
-	      for(j=0 ; j< this->n; ++j)
-	      {
-	      	//cout<<"j is: " <<j<<endl;
-	      cout<< *(ptr+ (i*(this->n) +j))<<"\t";
-	      }
-	      cout<<endl;
-	    }
-	
 
-}
+template<class T>
+ ostream& operator<< (ostream& os,Matrix<T>& obj)
+ {
+   
+   obj.displayMatrix();
+   return os;
+ }
+
+
 	
 template <class T>	
 void Matrix<T>::displayMatrix()
