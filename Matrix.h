@@ -35,8 +35,8 @@ class Matrix
 	Matrix(const Matrix &obj);		// Copy Constructor
 	Matrix & operator= (const Matrix &obj);  //Copy Assignment Operator
 
-	Matrix & operator+ (const Matrix &obj);
-	Matrix & operator- (const Matrix &obj);
+	Matrix operator+ (const Matrix &obj);
+	Matrix  operator- (const Matrix &obj);
 	Matrix operator* (const Matrix &obj);
 
 	const T& operator() (int r, int c) const;
@@ -67,7 +67,7 @@ template <class T>
 Matrix<T> :: Matrix (int nrow, int ncol)  // Constructor
 	{
 
-	cout<<"\nConstructor called for "<< nrow <<" rows and "<< ncol << " columns" << endl; 
+	//cout<<"\nConstructor called for "<< nrow <<" rows and "<< ncol << " columns" << endl; 
 
 	m = nrow;
 	n = ncol;
@@ -85,7 +85,7 @@ template <class T>
 Matrix<T> :: Matrix (int nrow, int ncol, T val)  // Constructor
 	{
 
-	cout<<"\nConstructor called for "<< nrow <<" rows and "<< ncol << " columns" << endl; 
+	//cout<<"\nConstructor called for "<< nrow <<" rows and "<< ncol << " columns" << endl; 
 
 	m = nrow;
 	n = ncol;
@@ -102,7 +102,7 @@ template <class T>
 Matrix<T>::Matrix(const Matrix &obj)       // Copy Constructor
 	 {
 	   
-	  cout<<"\nCopy constructor called"<<endl;
+	 // cout<<"\nCopy constructor called"<<endl;
 	  
 	  this->m=obj.m;
 	  this->n=obj.n;
@@ -118,7 +118,7 @@ Matrix<T>::Matrix(const Matrix &obj)       // Copy Constructor
 template <class T>	 
 Matrix<T> & Matrix<T>::operator=(const Matrix &obj)
 	 {
-	  cout<<"\nCopy assignment operator called"<<endl;
+	  //cout<<"\nCopy assignment operator called"<<endl;
 	  
 	  if(this != &obj)
 	  {
@@ -138,15 +138,18 @@ Matrix<T> & Matrix<T>::operator=(const Matrix &obj)
 	 }
 
 template <class T>
-Matrix<T> & Matrix<T>::operator+ (const Matrix &obj)
+Matrix<T>  Matrix<T>::operator+ (const Matrix &obj)
 {
 	assert(obj.m == this->m);
 	assert(obj.n == this->n);
 
-	for(int i=0; i<m*n ; ++i)
-		*(this->ptr+i) = (*(this->ptr + i)) + (*(obj.ptr +i));
+	//for(int i=0; i<m*n ; ++i)
+		//*(this->ptr+i) = (*(this->ptr + i)) + (*(obj.ptr +i));
+	
+	Matrix temp(*this);
+	temp += obj;
 
-	return *this;
+	return temp;
 }
 
 template <class T>
@@ -162,15 +165,15 @@ Matrix<T> & Matrix<T>::operator+= (const Matrix &obj)
 }
 
 template <class T>
-Matrix<T> & Matrix<T>::operator- (const Matrix &obj)
+Matrix<T>  Matrix<T>::operator- (const Matrix &obj)
 {
 	assert(obj.m == this->m);
 	assert(obj.n == this->n);
 
-	for(int i=0; i<m*n ; ++i)
-		*(ptr+i) = (*(this->ptr + i)) - (*(obj.ptr +i));
+	Matrix temp(*this);
+	temp -= obj;
 
-	return *this;
+	return temp;
 }	
 
 template <class T>
@@ -199,7 +202,7 @@ Matrix<T> Matrix<T>::operator* (const Matrix &obj)
 
 	for(int i=0; i< (this->m)*(obj.n) ; ++i)
 		{
-			cout<<"i is: "<<i <<endl;
+			//cout<<"i is: "<<i <<endl;
 			temp = 0.0;
 			row = i/(obj.n);
 			col = i % (obj.n); 
@@ -276,7 +279,7 @@ bool Matrix<T> :: operator!= (const Matrix &obj)
 template <class T>
 Matrix<T>::~Matrix()
 	{
-	cout<<"\nDestructor called " << endl; 
+	//cout<<"\nDestructor called " << endl; 
 	
 	delete[] ptr; 
 
@@ -312,7 +315,7 @@ template <class T>
 void Matrix<T>::displayMatrix()
       {
 	int i=0,j=0;
-	cout<<"\nThe contents of the matrix are: "<< endl;
+	//cout<<"\nThe contents of the matrix are: "<< endl;
 	
 	for(i=0 ; i< this->m ; ++i)
 	    {	
