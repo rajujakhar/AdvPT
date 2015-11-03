@@ -233,7 +233,7 @@ Matrix<T> Matrix<T>::operator* (const Matrix &obj)
 }	
 
 template <class T>
-Matrix<T> Matrix<T>::operator*= (const Matrix &obj)  // There is some error in the computation
+Matrix<T> Matrix<T>::operator*= (const Matrix &obj)  
 {
 	//Matrix retMat(this->m, obj.n, 0.0); 
 	Matrix m1(*this); 
