@@ -92,10 +92,10 @@ void testMemoryLayout()
 template<typename T>
 void functionTakingConstMatrix( const Matrix<T> & m )
 {
-    //std::cout << m(0,0) << std::endl;
+    std::cout << m(0,0) << std::endl;
     // Print to cout in the following format:
     // columns should be separated with one or more spaces or tabs, rows with newlines
-    //std::cout << m << std::endl;
+    std::cout << m << std::endl;
 }
 
 void testConstCapabilities()
@@ -114,5 +114,5 @@ int main(int argc, char** argv)
    testArithmeticOperators();
    testCopy();
    testMemoryLayout();
-  // testConstCapabilities();
+   testConstCapabilities();
 }

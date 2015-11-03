@@ -39,7 +39,7 @@ class Matrix
 	Matrix  operator- (const Matrix &obj);
 	Matrix operator* (const Matrix &obj);
 
-	const T& operator() (int r, int c) const;
+	T operator() (int r, int c) const;
 	T& operator() (int r, int c);
 
 	Matrix & operator+= (const Matrix &obj);
@@ -50,13 +50,13 @@ class Matrix
 	bool operator!= (const Matrix &obj);
 	
 	//template <class T>;
-	template<class U>
- 	friend ostream& operator<< (ostream& os, const Matrix<U>& obj); 
+	//template<class U>
+ 	//friend ostream& operator<< (ostream& os, const Matrix<U>& obj); 
 	/*A<U> foo(A<U>& a);
 	template <typename Type> // this is the template parameter declaration
 	friend ostream& operator<< (ostream& os, const Type &obj);*/
 
-	void displayMatrix();
+	void displayMatrix() const;
 
 
 } ;
@@ -286,7 +286,7 @@ Matrix<T>::~Matrix()
 	}
 
 template <class T>
-const T& Matrix<T> :: operator() (int r, int c) const
+T Matrix<T> :: operator() (int r, int c) const
 {
 	//cout<<"I am inside const operator ()" <<  endl; 	
 	return *(ptr+ r*n + c);
@@ -302,7 +302,7 @@ T& Matrix<T> :: operator() (int r, int c)
 
 
 template<class T>
- ostream& operator<< (ostream& os,Matrix<T>& obj)
+ ostream& operator<< (ostream& os,const Matrix<T>& obj)
  {
    
    obj.displayMatrix();
@@ -312,7 +312,7 @@ template<class T>
 
 	
 template <class T>	
-void Matrix<T>::displayMatrix()
+void Matrix<T>::displayMatrix() const
       {
 	int i=0,j=0;
 	//cout<<"\nThe contents of the matrix are: "<< endl;
